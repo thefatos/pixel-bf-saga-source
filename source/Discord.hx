@@ -44,8 +44,8 @@ class DiscordClient
 		DiscordRpc.presence({
 			details: "In the Menus",
 			state: null,
-			largeImageKey: 'icon',
-			largeImageText: "Monochrome Cover"
+			largeImageKey: 'null',
+			largeImageText: "Pixel BF Saga"
 		});
 	}
 
