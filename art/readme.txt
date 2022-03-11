@@ -1,27 +1,24 @@
- __                 /                                  
-/ _   _ |_ |_ .  _                                     
-\__) (- |_ |_ | | )                                    
-                                                       
- __                                                    
-|_   _  _  _  |                                        
-|   |  (- (_| |( \/                                    
-                 /                                     
-                                                       
- _   _     _                                           
-(_) | )   (_|                                          
-                                                       
- __                                                    
-|_   _ .  _|  _        _  .  _  |_  |_       _  _  |_  
-|   |  | (_| (_| \/   | ) | (_) | ) |_   \/ (- (_| | ) 
-                 /          _/           /             
 
+  _____              _                  
+ |  __ \            | |                 
+ | |  | | ___  _ __ | |_                
+ | |  | |/ _ \| '_ \| __|               
+ | |__| | (_) | | | | |_                
+ |_____/ \___/|_| |_|\__|               
+ |  __ \              | |               
+ | |__) |___  __ _  __| |_ __ ___   ___ 
+ |  _  // _ \/ _` |/ _` | '_ ` _ \ / _ \
+ | | \ \  __/ (_| | (_| | | | | | |  __/
+ |_|  \_\___|\__,_|\__,_|_| |_| |_|\___|
+                                        
+    
 HEY
-Thanks for downloadin Friday Night FUNKIN'
-If you downloaded this from any other place than ninja-muffin24.itch.io/FUNKIN
+Thanks for downloadin Friday Night Funkin Pixel BF Saga!'
+If you downloaded this from any other place than https://gamebanana.com/mods/356169 or from Github
 You might be in DANGER!!! 
 
-The Itch.io release is the only official source for the desktop (PC, Mac, Linux) versions of the game!
-As of right now, the game is FREE! If you paid for it, you got SCAMMED!
+The Gamebanana and Github release is the only official source for the desktop (PC, Mac, Linux) versions of the game!
+As of right now, the mod and game is FREE! If you paid for it, you got SCAMMED!
 
 Now that that's out of the way....
 THANKS FOR DOWNLOADIN. 
@@ -30,19 +27,20 @@ THANKS FOR DOWNLOADIN.
     PERMISSIONS XDDDD
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 
-Little info, you have FULL PERMISSION to stream, letsplay, meme, shitpost, do WHATEVER you want with the game.
+Little info, you have FULL PERMISSION to stream, letsplay, meme, shitpost, do WHATEVER you want with the mod.
 Use the music in videos you do, use art, ANYTHING. GO CRAZY BRO.
 
 If you do make any sort of video, it would be a bro move if you linked the game and spread the word
 
 Play On Newgrounds - https://www.newgrounds.com/portal/view/770371
 Support on Itch.io - https://ninja-muffin24.itch.io/funkin
+Play the mod - https://gamebanana.com/mods/356169
 
 If not no biggie we don't fully hate you only kinda no biggie.
 
 
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
-    INFO AND LINKS
+    INFO AND LINKS FOR THE ORIGINAL GAME
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 
 If you wanna dig around, the game is fully open source on Github
@@ -75,7 +73,27 @@ Go to newgrounds, we love newgrounds. newgrounds good. How many times do I gotta
 I love Tom Fulp.
 
 - Cameron ♪(´▽｀)
+#################################################################################
 
+  _____ _          _   ____  ______ 
+ |  __ (_)        | | |  _ \|  ____|
+ | |__) |__  _____| | | |_) | |__   
+ |  ___/ \ \/ / _ \ | |  _ <|  __|  
+ | |   | |>  <  __/ | | |_) | |     
+ |_|___|_/_/\_\___|_| |____/|_|     
+  / ____|                           
+ | (___   __ _  __ _  __ _          
+  \___ \ / _` |/ _` |/ _` |         
+  ____) | (_| | (_| | (_| |         
+ |_____/ \__,_|\__, |\__,_|         
+                __/ |               
+  __  __       |___/                
+ |  \/  |         | |               
+ | \  / | ___   __| |               
+ | |\/| |/ _ \ / _` |               
+ | |  | | (_) | (_| |               
+ |_|  |_|\___/ \__,_|               
+                                                                       
 ##################################################################################
                                                                                   
  _   _   _____   _      _    ____   ____     ___    _   _   _   _   ____    ____  
