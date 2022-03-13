@@ -1,4 +1,4 @@
-
+IF YOU ARE DUMB TO READ THE GAMEBANA PAGE USE ALT+ENTER TO FULL SCREEN BUT ANYWAYS
   _____              _                  
  |  __ \            | |                 
  | |  | | ___  _ __ | |_                
