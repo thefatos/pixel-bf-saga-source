@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: HTML5 Build CI
+name: Android Build
 
 # Controls when the workflow will run
 on: [push, pull_request]
@@ -22,10 +22,6 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: script run line haha
         run: |
-          sudo add-apt-repository ppa:haxe/releases -y
-          sudo apt-get update
-          sudo apt-get install gcc-multilib g++-multilib haxe -y
-          mkdir "%HAXELIB_ROOT%"
           haxelib setup "%HAXELIB_ROOT%"
           haxelib install lime 7.9.0
           haxelib install openfl
@@ -39,10 +35,11 @@ jobs:
           haxelib install flixel-addons
           haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
           haxelib git linc_luajit https://github.com/MasterEric/linc_luajit.git
+          haxelib setup android
           haxelib list
-          haxelib run lime build html5
+          haxelib run lime build android
           
       - uses: actions/upload-artifact@v2
         with:
-          name: HTML5 Build
-          path: export/release/html5/bin
+          name: Android Build
+          path: export/release/android/bin
