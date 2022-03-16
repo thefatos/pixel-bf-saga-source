@@ -18,7 +18,8 @@ To install LuaJIT do this: `haxelib git linc_luajit https://github.com/AndreiRud
 ### Special Thanks
 * shubs - New Input System
 * ActualMandM - Prevent Lua scripts from bypassing disabled antialiasing code
-* HiroMizuki - Screen Resolution code
+* HiroMizuki - Screen Resolution code & Pixel Note Splashes
+* jigsaw-4277821 - Text Box in Credits Menu Code
 * pahaze - Botplay text moves to bottom in Middle Scroll code
 * SqirraRNG - Chart Editor's Sound Waveform base code
 * iFlicky - Delay/Combo Menu Song Composer + Dialogue Sounds
