@@ -1,302 +1,335 @@
 package;
 
+#if desktop
+import Discord.DiscordClient;
+#end
+import flash.text.TextField;
 import flixel.FlxG;
-import flixel.util.FlxSave;
-import flixel.input.keyboard.FlxKey;
-import flixel.graphics.FlxGraphic;
-import Controls;
+import flixel.FlxSprite;
+import flixel.addons.display.FlxGridOverlay;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.math.FlxMath;
+import flixel.text.FlxText;
+import flixel.util.FlxColor;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+#if MODS_ALLOWED
+import sys.FileSystem;
+import sys.io.File;
+#end
+import lime.utils.Assets;
 
-class ClientPrefs {
-	public static var downScroll:Bool = false;
-	public static var middleScroll:Bool = false;
-	public static var showFPS:Bool = true;
-	public static var flashing:Bool = true;
-	public static var globalAntialiasing:Bool = true;
-	public static var noteSplashes:Bool = true;
-	public static var lowQuality:Bool = false;
-	public static var framerate:Int = 60;
-	public static var cursing:Bool = true;
-	public static var violence:Bool = true;
-	public static var camZooms:Bool = true;
-	public static var hideHud:Bool = false;
-	public static var noteOffset:Int = 0;
-	public static var arrowHSV:Array<Array<Int>> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
-	public static var imagesPersist:Bool = false;
-	public static var ghostTapping:Bool = true;
-	public static var instantRespawn:Bool = false;
-	public static var timeBarType:String = 'Time Left';
-	public static var scoreZoom:Bool = true;
-	public static var noReset:Bool = false;
-	public static var healthBarAlpha:Float = 1;
-	public static var controllerMode:Bool = false;
-	public static var screenRes:String = '1280x720';
-	public static var hitsoundVolume:Float = 0;
-	public static var pauseMusic:String = 'Tea Time';
-	public static var gameplaySettings:Map<String, Dynamic> = [
-		'scrollspeed' => 1.0,
-		'scrolltype' => 'multiplicative', 
-		// anyone reading this, amod is multiplicative speed mod, cmod is constant speed mod, and xmod is bpm based speed mod.
-		// an amod example would be chartSpeed * multiplier
-		// cmod would just be constantSpeed = chartSpeed
-		// and xmod basically works by basing the speed on the bpm.
-		// iirc (beatsPerSecond * (conductorToNoteDifference / 1000)) * noteSize (110 or something like that depending on it, prolly just use note.height)
-		// bps is calculated by bpm / 60
-		// oh yeah and you'd have to actually convert the difference to seconds which I already do, because this is based on beats and stuff. but it should work
-		// just fine. but I wont implement it because I don't know how you handle sustains and other stuff like that.
-		// oh yeah when you calculate the bps divide it by the songSpeed or rate because it wont scroll correctly when speeds exist.
-		'songspeed' => 1.0,
-		'healthgain' => 1.0,
-		'healthloss' => 1.0,
-		'instakill' => false,
-		'practice' => false,
-		'botplay' => false,
-		'opponentplay' => false
-	];
+using StringTools;
 
-	public static var comboOffset:Array<Int> = [0, 0, 0, 0];
-	public static var ratingOffset:Int = 0;
-	public static var sickWindow:Int = 45;
-	public static var goodWindow:Int = 90;
-	public static var badWindow:Int = 135;
-	public static var safeFrames:Float = 10;
+class CreditsState extends MusicBeatState
+{
+	var curSelected:Int = -1;
 
-	//Every key has two binds, add your key bind down here and then add your control on options/ControlsSubState.hx and Controls.hx
-	public static var keyBinds:Map<String, Array<FlxKey>> = [
-		//Key Bind, Name for ControlsSubState
-		'note_left'		=> [A, LEFT],
-		'note_down'		=> [S, DOWN],
-		'note_up'		=> [W, UP],
-		'note_right'	=> [D, RIGHT],
+	private var grpOptions:FlxTypedGroup<Alphabet>;
+	private var iconArray:Array<AttachedSprite> = [];
+	private var creditsStuff:Array<Array<String>> = [];
+
+	var bg:FlxSprite;
+	var descBox:FlxSprite
+	var descText:FlxText;
+	var intendedColor:Int;
+	var colorTween:FlxTween;
+	var descBox:AttachedSprite;
+
+	var offsetThing:Float = -75;
+
+	override function create()
+	{
+		#if desktop
+		// Updating Discord Rich Presence
+		DiscordClient.changePresence("In the Menus", null);
+		#end
+
+		persistentUpdate = true;
+		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		add(bg);
+		bg.screenCenter();
 		
-		'ui_left'		=> [A, LEFT],
-		'ui_down'		=> [S, DOWN],
-		'ui_up'			=> [W, UP],
-		'ui_right'		=> [D, RIGHT],
-		
-		'accept'		=> [SPACE, ENTER],
-		'back'			=> [BACKSPACE, ESCAPE],
-		'pause'			=> [ENTER, ESCAPE],
-		'reset'			=> [R, NONE],
-		
-		'volume_mute'	=> [ZERO, NONE],
-		'volume_up'		=> [NUMPADPLUS, PLUS],
-		'volume_down'	=> [NUMPADMINUS, MINUS],
-		
-		'debug_1'		=> [SEVEN, NONE],
-		'debug_2'		=> [EIGHT, NONE]
-	];
-	public static var defaultKeys:Map<String, Array<FlxKey>> = null;
+		grpOptions = new FlxTypedGroup<Alphabet>();
+		add(grpOptions);
 
-	public static function loadDefaultKeys() {
-		defaultKeys = keyBinds.copy();
-		//trace(defaultKeys);
-	}
-
-	public static function saveSettings() {
-		FlxG.save.data.downScroll = downScroll;
-		FlxG.save.data.middleScroll = middleScroll;
-		FlxG.save.data.showFPS = showFPS;
-		FlxG.save.data.flashing = flashing;
-		FlxG.save.data.globalAntialiasing = globalAntialiasing;
-		FlxG.save.data.noteSplashes = noteSplashes;
-		FlxG.save.data.lowQuality = lowQuality;
-		FlxG.save.data.framerate = framerate;
-		//FlxG.save.data.cursing = cursing;
-		//FlxG.save.data.violence = violence;
-		FlxG.save.data.camZooms = camZooms;
-		FlxG.save.data.noteOffset = noteOffset;
-		FlxG.save.data.hideHud = hideHud;
-		FlxG.save.data.arrowHSV = arrowHSV;
-		FlxG.save.data.imagesPersist = imagesPersist;
-		FlxG.save.data.ghostTapping = ghostTapping;
-		FlxG.save.data.instantRespawn = instantRespawn;
-		FlxG.save.data.timeBarType = timeBarType;
-		FlxG.save.data.scoreZoom = scoreZoom;
-		FlxG.save.data.noReset = noReset;
-		FlxG.save.data.healthBarAlpha = healthBarAlpha;
-		FlxG.save.data.comboOffset = comboOffset;
-		FlxG.save.data.achievementsMap = Achievements.achievementsMap;
-		FlxG.save.data.henchmenDeath = Achievements.henchmenDeath;
-
-		FlxG.save.data.ratingOffset = ratingOffset;
-		FlxG.save.data.sickWindow = sickWindow;
-		FlxG.save.data.goodWindow = goodWindow;
-		FlxG.save.data.badWindow = badWindow;
-		FlxG.save.data.safeFrames = safeFrames;
-		FlxG.save.data.gameplaySettings = gameplaySettings;
-		FlxG.save.data.controllerMode = controllerMode;
-		FlxG.save.data.screenRes = screenRes;
-		FlxG.save.data.hitsoundVolume = hitsoundVolume;
-		FlxG.save.data.pauseMusic = pauseMusic;
-	
-		FlxG.save.flush();
-
-		var save:FlxSave = new FlxSave();
-		save.bind('controls_v2', 'ninjamuffin99'); //Placing this in a separate save so that it can be manually deleted without removing your Score and stuff
-		save.data.customControls = keyBinds;
-		save.flush();
-		FlxG.log.add("Settings saved!");
-	}
-
-	public static function loadPrefs() {
-		if(FlxG.save.data.downScroll != null) {
-			downScroll = FlxG.save.data.downScroll;
-		}
-		if(FlxG.save.data.middleScroll != null) {
-			middleScroll = FlxG.save.data.middleScroll;
-		}
-		if(FlxG.save.data.showFPS != null) {
-			showFPS = FlxG.save.data.showFPS;
-			if(Main.fpsVar != null) {
-				Main.fpsVar.visible = showFPS;
-			}
-		}
-		if(FlxG.save.data.flashing != null) {
-			flashing = FlxG.save.data.flashing;
-		}
-		if(FlxG.save.data.globalAntialiasing != null) {
-			globalAntialiasing = FlxG.save.data.globalAntialiasing;
-		}
-		if(FlxG.save.data.noteSplashes != null) {
-			noteSplashes = FlxG.save.data.noteSplashes;
-		}
-		if(FlxG.save.data.lowQuality != null) {
-			lowQuality = FlxG.save.data.lowQuality;
-		}
-		if(FlxG.save.data.framerate != null) {
-			framerate = FlxG.save.data.framerate;
-			if(framerate > FlxG.drawFramerate) {
-				FlxG.updateFramerate = framerate;
-				FlxG.drawFramerate = framerate;
-			} else {
-				FlxG.drawFramerate = framerate;
-				FlxG.updateFramerate = framerate;
-			}
-		}
-		/*if(FlxG.save.data.cursing != null) {
-			cursing = FlxG.save.data.cursing;
-		}
-		if(FlxG.save.data.violence != null) {
-			violence = FlxG.save.data.violence;
-		}*/
-		if(FlxG.save.data.camZooms != null) {
-			camZooms = FlxG.save.data.camZooms;
-		}
-		if(FlxG.save.data.hideHud != null) {
-			hideHud = FlxG.save.data.hideHud;
-		}
-		if(FlxG.save.data.noteOffset != null) {
-			noteOffset = FlxG.save.data.noteOffset;
-		}
-		if(FlxG.save.data.arrowHSV != null) {
-			arrowHSV = FlxG.save.data.arrowHSV;
-		}
-		if(FlxG.save.data.ghostTapping != null) {
-			ghostTapping = FlxG.save.data.ghostTapping;
-		}
-		if(FlxG.save.data.instantRespawn != null) {
-			instantRespawn = FlxG.save.data.instantRespawn;
-		}
-		if(FlxG.save.data.timeBarType != null) {
-			timeBarType = FlxG.save.data.timeBarType;
-		}
-		if(FlxG.save.data.scoreZoom != null) {
-			scoreZoom = FlxG.save.data.scoreZoom;
-		}
-		if(FlxG.save.data.noReset != null) {
-			noReset = FlxG.save.data.noReset;
-		}
-		if(FlxG.save.data.healthBarAlpha != null) {
-			healthBarAlpha = FlxG.save.data.healthBarAlpha;
-		}
-		if(FlxG.save.data.comboOffset != null) {
-			comboOffset = FlxG.save.data.comboOffset;
-		}
-		
-		if(FlxG.save.data.ratingOffset != null) {
-			ratingOffset = FlxG.save.data.ratingOffset;
-		}
-		if(FlxG.save.data.sickWindow != null) {
-			sickWindow = FlxG.save.data.sickWindow;
-		}
-		if(FlxG.save.data.goodWindow != null) {
-			goodWindow = FlxG.save.data.goodWindow;
-		}
-		if(FlxG.save.data.badWindow != null) {
-			badWindow = FlxG.save.data.badWindow;
-		}
-		if(FlxG.save.data.safeFrames != null) {
-			safeFrames = FlxG.save.data.safeFrames;
-		}
-		if(FlxG.save.data.controllerMode != null) {
-			controllerMode = FlxG.save.data.controllerMode;
-		}
-		if(FlxG.save.data.screenRes != null) {
-			screenRes = FlxG.save.data.screenRes;
-		}
-		if(FlxG.save.data.hitsoundVolume != null) {
-			hitsoundVolume = FlxG.save.data.hitsoundVolume;
-		}
-		if(FlxG.save.data.pauseMusic != null) {
-			pauseMusic = FlxG.save.data.pauseMusic;
-		}
-		if(FlxG.save.data.gameplaySettings != null)
+		#if MODS_ALLOWED
+		var path:String = 'modsList.txt';
+		if(FileSystem.exists(path))
 		{
-			var savedMap:Map<String, Dynamic> = FlxG.save.data.gameplaySettings;
-			for (name => value in savedMap)
+			var leMods:Array<String> = CoolUtil.coolTextFile(path);
+			for (i in 0...leMods.length)
 			{
-				gameplaySettings.set(name, value);
+				if(leMods.length > 1 && leMods[0].length > 0) {
+					var modSplit:Array<String> = leMods[i].split('|');
+					if(!Paths.ignoreModFolders.contains(modSplit[0].toLowerCase()) && !modsAdded.contains(modSplit[0]))
+					{
+						if(modSplit[1] == '1')
+							pushModCreditsToList(modSplit[0]);
+						else
+							modsAdded.push(modSplit[0]);
+					}
+				}
+			}
+		}
+
+		var arrayOfFolders:Array<String> = Paths.getModDirectories();
+		arrayOfFolders.push('');
+		for (folder in arrayOfFolders)
+		{
+			pushModCreditsToList(folder);
+		}
+		#end
+
+		var pisspoop:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
+			['Psych Engine Team'],
+			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',							'https://twitter.com/Shadow_Mario_',	'444444'],
+			['RiverOaken',			'riveroaken',		'Main Artist/Animator of Psych Engine',						'https://twitter.com/RiverOaken',		'C30085'],
+			['shubs',				'shubs',			'Additional Programmer of Psych Engine',					'https://twitter.com/yoshubs',			'279ADC'],
+			[''],
+			['Former Engine Members'],
+			['bb-panzu',			'bb-panzu',			'Ex-Programmer of Psych Engine',							'https://twitter.com/bbsub3',			'389A58'],
+			[''],
+			['Engine Contributors'],
+			['iFlicky',				'iflicky',			'Composer of Psync and Tea Time\nMade the Dialogue Sounds',	'https://twitter.com/flicky_i',			'AA32FE'],
+			['SqirraRNG',			'gedehari',			'Chart Editor\'s Sound Waveform base',						'https://twitter.com/gedehari',			'FF9300'],
+			['PolybiusProxy',		'polybiusproxy',	'.MP4 Video Loader Extension',								'https://twitter.com/polybiusproxy',	'FFEAA6'],
+			['Keoiki',				'keoiki',			'Note Splash Animations',									'https://twitter.com/Keoiki_',			'FFFFFF'],
+			['Smokey',				'smokey',			'Spritemap Texture Support',								'https://twitter.com/Smokey_5_',		'4D5DBD'],
+			[''],
+			["Funkin' Crew"],
+			['ninjamuffin99',		'ninjamuffin99',	"Programmer of Friday Night Funkin'",						'https://twitter.com/ninja_muffin99',	'F73838'],
+			['PhantomArcade',		'phantomarcade',	"Animator of Friday Night Funkin'",							'https://twitter.com/PhantomArcade3K',	'FFBB1B'],
+			['evilsk8r',			'evilsk8r',			"Artist of Friday Night Funkin'",							'https://twitter.com/evilsk8r',			'53E52C'],
+			['kawaisprite',			'kawaisprite',		"Composer of Friday Night Funkin'",							'https://twitter.com/kawaisprite',		'6475F3']
+		];
+		
+		for(i in pisspoop){
+			creditsStuff.push(i);
+		}
+	
+		for (i in 0...creditsStuff.length)
+		{
+			var isSelectable:Bool = !unselectableCheck(i);
+			var optionText:Alphabet = new Alphabet(0, 70 * i, creditsStuff[i][0], !isSelectable, false);
+			optionText.isMenuItem = true;
+			optionText.screenCenter(X);
+			optionText.yAdd -= 70;
+			if(isSelectable) {
+				optionText.x -= 70;
+			}
+			optionText.forceX = optionText.x;
+			//optionText.yMult = 90;
+			optionText.targetY = i;
+			grpOptions.add(optionText);
+
+			if(isSelectable) {
+				if(creditsStuff[i][5] != null)
+				{
+					Paths.currentModDirectory = creditsStuff[i][5];
+				}
+
+				var icon:AttachedSprite = new AttachedSprite('credits/' + creditsStuff[i][1]);
+				icon.xAdd = optionText.width + 10;
+				icon.sprTracker = optionText;
+	
+				// using a FlxGroup is too much fuss!
+				iconArray.push(icon);
+				add(icon);
+				Paths.currentModDirectory = '';
+
+				if(curSelected == -1) curSelected = i;
 			}
 		}
 		
-		// flixel automatically saves your volume!
-		if(FlxG.save.data.volume != null)
+		descBox = new AttachedSprite();
+		descBox.makeGraphic(1, 1, FlxColor.BLACK);
+		descBox.xAdd = -10;
+		descBox.yAdd = -10;
+		descBox.alphaMult = 0.6;
+		descBox.alpha = 0.6;
+		add(descBox);
+        
+	    descBox = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
+		descBox.alpha = 0.6;
+		add(descBox);
+		
+		descText = new FlxText(50, FlxG.height + offsetThing - 25, 1180, "", 32);
+		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER/*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
+		descText.scrollFactor.set();
+		//descText.borderSize = 2.4;
+		descBox.sprTracker = descText;
+		add(descText);
+
+		bg.color = getCurrentBGColor();
+		intendedColor = bg.color;
+		changeSelection();
+		super.create();
+	}
+
+	var quitting:Bool = false;
+	var holdTime:Float = 0;
+	override function update(elapsed:Float)
+	{
+		if (FlxG.sound.music.volume < 0.7)
 		{
-			FlxG.sound.volume = FlxG.save.data.volume;
+			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
-		if (FlxG.save.data.mute != null)
+
+		if(!quitting)
 		{
-			FlxG.sound.muted = FlxG.save.data.mute;
-		}
+			if(creditsStuff.length > 1)
+			{
+				var shiftMult:Int = 1;
+				if(FlxG.keys.pressed.SHIFT) shiftMult = 3;
 
-		var save:FlxSave = new FlxSave();
-		save.bind('controls_v2', 'ninjamuffin99');
-		if(save != null && save.data.customControls != null) {
-			var loadedControls:Map<String, Array<FlxKey>> = save.data.customControls;
-			for (control => keys in loadedControls) {
-				keyBinds.set(control, keys);
+				var upP = controls.UI_UP_P;
+				var downP = controls.UI_DOWN_P;
+
+				if (upP)
+				{
+					changeSelection(-1 * shiftMult);
+					holdTime = 0;
+				}
+				if (downP)
+				{
+					changeSelection(1 * shiftMult);
+					holdTime = 0;
+				}
+
+				if(controls.UI_DOWN || controls.UI_UP)
+				{
+					var checkLastHold:Int = Math.floor((holdTime - 0.5) * 10);
+					holdTime += elapsed;
+					var checkNewHold:Int = Math.floor((holdTime - 0.5) * 10);
+
+					if(holdTime > 0.5 && checkNewHold - checkLastHold > 0)
+					{
+						changeSelection((checkNewHold - checkLastHold) * (controls.UI_UP ? -shiftMult : shiftMult));
+					}
+				}
 			}
-			reloadControls();
-		}
-	}
 
-	inline public static function getGameplaySetting(name:String, defaultValue:Dynamic):Dynamic {
-		return /*PlayState.isStoryMode ? defaultValue : */ (gameplaySettings.exists(name) ? gameplaySettings.get(name) : defaultValue);
-	}
-
-	public static function reloadControls() {
-		PlayerSettings.player1.controls.setKeyboardScheme(KeyboardScheme.Solo);
-
-		TitleState.muteKeys = copyKey(keyBinds.get('volume_mute'));
-		TitleState.volumeDownKeys = copyKey(keyBinds.get('volume_down'));
-		TitleState.volumeUpKeys = copyKey(keyBinds.get('volume_up'));
-		FlxG.sound.muteKeys = TitleState.muteKeys;
-		FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
-		FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
-	}
-	public static function copyKey(arrayToCopy:Array<FlxKey>):Array<FlxKey> {
-		var copiedArray:Array<FlxKey> = arrayToCopy.copy();
-		var i:Int = 0;
-		var len:Int = copiedArray.length;
-
-		while (i < len) {
-			if(copiedArray[i] == NONE) {
-				copiedArray.remove(NONE);
-				--i;
+			if(controls.ACCEPT) {
+				CoolUtil.browserLoad(creditsStuff[curSelected][3]);
 			}
-			i++;
-			len = copiedArray.length;
+			if (controls.BACK)
+			{
+				if(colorTween != null) {
+					colorTween.cancel();
+				}
+				FlxG.sound.play(Paths.sound('cancelMenu'));
+				MusicBeatState.switchState(new MainMenuState());
+				quitting = true;
+			}
 		}
-		return copiedArray;
+		
+		for (item in grpOptions.members)
+		{
+			if(!item.isBold)
+			{
+				var lerpVal:Float = CoolUtil.boundTo(elapsed * 12, 0, 1);
+				if(item.targetY == 0)
+				{
+					var lastX:Float = item.x;
+					item.screenCenter(X);
+					item.x = FlxMath.lerp(lastX, item.x - 70, lerpVal);
+					item.forceX = item.x;
+				}
+				else
+				{
+					item.x = FlxMath.lerp(item.x, 200 + -40 * Math.abs(item.targetY), lerpVal);
+					item.forceX = item.x;
+				}
+			}
+		}
+		super.update(elapsed);
+	}
+
+	var moveTween:FlxTween = null;
+	function changeSelection(change:Int = 0)
+	{
+		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
+		do {
+			curSelected += change;
+			if (curSelected < 0)
+				curSelected = creditsStuff.length - 1;
+			if (curSelected >= creditsStuff.length)
+				curSelected = 0;
+		} while(unselectableCheck(curSelected));
+
+		var newColor:Int =  getCurrentBGColor();
+		if(newColor != intendedColor) {
+			if(colorTween != null) {
+				colorTween.cancel();
+			}
+			intendedColor = newColor;
+			colorTween = FlxTween.color(bg, 1, bg.color, intendedColor, {
+				onComplete: function(twn:FlxTween) {
+					colorTween = null;
+				}
+			});
+		}
+
+		var bullShit:Int = 0;
+
+		for (item in grpOptions.members)
+		{
+			item.targetY = bullShit - curSelected;
+			bullShit++;
+
+			if(!unselectableCheck(bullShit-1)) {
+				item.alpha = 0.6;
+				if (item.targetY == 0) {
+					item.alpha = 1;
+				}
+			}
+		}
+
+		descText.text = creditsStuff[curSelected][2];
+		descText.y = FlxG.height - descText.height + offsetThing - 60;
+
+		if(moveTween != null) moveTween.cancel();
+		moveTween = FlxTween.tween(descText, {y : descText.y + 75}, 0.25, {ease: FlxEase.sineOut});
+
+		descBox.setGraphicSize(Std.int(descText.width + 20), Std.int(descText.height + 25));
+		descBox.updateHitbox();
+	}
+
+	#if MODS_ALLOWED
+	private var modsAdded:Array<String> = [];
+	function pushModCreditsToList(folder:String)
+	{
+		if(modsAdded.contains(folder)) return;
+
+		var creditsFile:String = null;
+		if(folder != null && folder.trim().length > 0) creditsFile = Paths.mods(folder + '/data/credits.txt');
+		else creditsFile = Paths.mods('data/credits.txt');
+
+		if (FileSystem.exists(creditsFile))
+		{
+			var firstarray:Array<String> = File.getContent(creditsFile).split('\n');
+			for(i in firstarray)
+			{
+				var arr:Array<String> = i.replace('\\n', '\n').split("::");
+				if(arr.length >= 5) arr.push(folder);
+				creditsStuff.push(arr);
+			}
+			creditsStuff.push(['']);
+		}
+		modsAdded.push(folder);
+	}
+	#end
+
+	function getCurrentBGColor() {
+		var bgColor:String = creditsStuff[curSelected][4];
+		if(!bgColor.startsWith('0x')) {
+			bgColor = '0xFF' + bgColor;
+		}
+		return Std.parseInt(bgColor);
+	}
+
+	private function unselectableCheck(num:Int):Bool {
+		return creditsStuff[num].length <= 1;
 	}
 }
