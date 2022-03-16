@@ -16,6 +16,12 @@ class NoteSplash extends FlxSprite
 		var skin:String = 'noteSplashes';
 		if(PlayState.SONG.splashSkin != null && PlayState.SONG.splashSkin.length > 0) skin = PlayState.SONG.splashSkin;
 
+		if(PlayState.isPixelStage) {
+			texture = 'pixelUI/noteSplashes';
+			if(PlayState.SONG.splashSkin != null && PlayState.SONG.splashSkin.length > 0) texture = 'pixelUI/' + PlayState.SONG.splashSkin;
+			if(animation.curAnim != null)animation.curAnim.frameRate = 12;
+		}
+		
 		loadAnims(skin);
 		
 		colorSwap = new ColorSwap();
