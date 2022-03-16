@@ -1039,20 +1039,15 @@ class PlayState extends MusicBeatState
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
-		botplayTxt = new FlxText(395, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY ENABLED", 32);
-		if(ClientPrefs.downScroll)
-			botplayTxt.y = timeBarBG.y - 78;
-		if(ClientPrefs.middleScroll) {
-			if(ClientPrefs.downScroll)
-				botplayTxt.y = botplayTxt.y - 78;
-			else
-				botplayTxt.y = botplayTxt.y + 78;
-		}
+		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY ENABLED", 32);
 		botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
 		botplayTxt.borderSize = 1.25;
 		botplayTxt.visible = cpuControlled;
 		add(botplayTxt);
+		if(ClientPrefs.downScroll) {
+			botplayTxt.y = timeBarBG.y - 78;
+		}
 
 		strumLineNotes.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
@@ -2343,12 +2338,8 @@ class PlayState extends MusicBeatState
 					FlxG.sound.music.pause();
 					vocals.pause();
 				}
-				if (!ClientPrefs.instantRespawn)
-
-				
-					openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x - boyfriend.positionArray[0], boyfriend.getScreenPosition().y - boyfriend.positionArray[1], camFollowPos.x, camFollowPos.y));
-				else
-					MusicBeatState.resetState();
+				openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+				//}
 		
 				#if desktop
 				DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
