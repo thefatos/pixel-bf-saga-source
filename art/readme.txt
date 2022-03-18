@@ -1,4 +1,4 @@
-IF YOU ARE DUMB TO READ THE GAMEBANA PAGE USE ALT+ENTER TO FULL SCREEN BUT ANYWAYS
+IF YOU ARE DUMB TO READ THE GAMEBANANA PAGE USE ALT+ENTER TO FULL SCREEN BUT ANYWAYS
   _____              _                  
  |  __ \            | |                 
  | |  | | ___  _ __ | |_                
@@ -13,7 +13,7 @@ IF YOU ARE DUMB TO READ THE GAMEBANA PAGE USE ALT+ENTER TO FULL SCREEN BUT ANYWA
                                         
     
 HEY
-Thanks for downloadin Friday Night Funkin Pixel BF Saga!'
+Thanks for downloadin Friday Night Funkin Pixel BF Saga!
 If you downloaded this from any other place than https://gamebanana.com/mods/356169 or from Github
 You might be in DANGER!!! 
 
@@ -27,24 +27,25 @@ THANKS FOR DOWNLOADIN.
     PERMISSIONS XDDDD
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 
-Little info, you have FULL PERMISSION to stream, letsplay, meme, shitpost, do WHATEVER you want with the mod.
+Little info, you have FULL PERMISSION to stream, letsplay, meme, shitpost, do WHATEVER you want with the mod and game.
 Use the music in videos you do, use art, ANYTHING. GO CRAZY BRO.
 
-If you do make any sort of video, it would be a bro move if you linked the game and spread the word
+If you do make any sort of video, it would be a bro move if you linked the game and mod and spread the word
 
 Play On Newgrounds - https://www.newgrounds.com/portal/view/770371
 Support on Itch.io - https://ninja-muffin24.itch.io/funkin
 Play the mod - https://gamebanana.com/mods/356169
 
-If not no biggie we don't fully hate you only kinda no biggie.
+If not no biggie we don't fully hate you only kinda no biggie. Nah we hate you >:))))))).
 
 
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
     INFO AND LINKS FOR THE ORIGINAL GAME
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 
-If you wanna dig around, the game is fully open source on Github
+If you wanna dig around, the game and mod is fully open source on Github
 https://github.com/ninjamuffin99/Funkin
+Mod: https://github.com/thefatos/funni
 
 It's made in Haxe / HaxeFlixel
 
@@ -53,7 +54,7 @@ https://kawaisprite.bandcamp.com/album/friday-night-funkin-ost-vol-1
 
 
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
-    FINAL WORDS / CREDITS
+    FINAL WORDS / CREDITS N crap
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 
 Friday Night Funkin' is made by ninjamuffin99 (programmer), PhantomArcade (animator), kawaisprite (musician), and evilsk8r (artist)
