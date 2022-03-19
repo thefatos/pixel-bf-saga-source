@@ -1,6 +1,6 @@
 {
 	"name": "Pixel BF Saga Mod",
 	"description": "The mod folder for the Pixel BF Saga Mod.",
-	"restart":true,
+	"restart":false,
 	"color": [170, 0, 255]
 }
