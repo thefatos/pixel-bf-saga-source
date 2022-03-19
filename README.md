@@ -7,44 +7,7 @@ Follow a Friday Night Funkin' source code compilation tutorial, after this you w
 
 To install LuaJIT do this: `haxelib git linc_luajit https://github.com/AndreiRudenko/linc_luajit ` on a Command prompt/PowerShell
 
-### Ubuntu
-
-Steps to do for compiling the game from this repository.
-
-First install [Haxe]([Haxe - The Cross-platform Toolkit](https://haxe.org/download/linux/)) by simply running the following command on a terminal:
-
-```
-sudo apt install git
-sudo add-apt-repository ppa:haxe/releases -y
-sudo apt-get update
-sudo apt-get install haxe -y
-mkdir ~/haxelib && haxelib setup ~/haxelib
-```
-
-Next install some libraries for [HaxeFlixel]([Install HaxeFlixel | HaxeFlixel 2D Game Engine](https://haxeflixel.com/documentation/install-haxeflixel/)) by running the following commands:
-
-```
-haxelib install lime
-haxelib install openfl
-haxelib install flixel
-haxelib install newgrounds
-```
-
-After those three libraries are installed, execute the next command to install most of the stuff: 
-
-- `haxelib run lime setup flixel`
-
-For avoid long command names run this command `haxelib run lime setup`  and press `y` when the message appears. This will make `lime` as a command.
-
-Lastly Install the following libraries.
-
-```
-haxelib git linc_luajit https://github.com/AndreiRudenko/linc_luajit
-haxelib git polymod https://github.com/larsiusprime/polymod.git
-haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
-```
-
-You can now play, test and debug the game. To debug the game just run `lime test linux -debug`.
+...Or if you don't want your mod to be able to run .lua scripts, delete the "LUA_ALLOWED" line on Project.xml
 
 ## Credits:
 * Shadow Mario - Coding
