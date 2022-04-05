@@ -57,6 +57,7 @@ You can now play, test and debug the game. To debug the game just run `lime test
 * ActualMandM - Prevent Lua scripts from bypassing disabled antialiasing code
 * jigsaw-4277821 - Black box in credits decription.
 * HiroMizuki - Pixel Note Splashes
+* SimonStarace - Installation steps for Ubuntu distros.
 * SqirraRNG - Chart Editor's Sound Waveform base code
 * iFlicky - Delay/Combo Menu Song Composer + Dialogue Sounds
 * PolybiusProxy - .MP4 Loader Extension
