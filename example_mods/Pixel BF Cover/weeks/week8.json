@@ -20,6 +20,15 @@
 				214,
 				246
 			]
+		],
+		[
+			"Talentless Fox",
+			"bf-pixel",
+			[
+				123,
+				214,
+				246
+			]
 		]
 	],
 	"weekCharacters": [
@@ -27,5 +36,5 @@
 		"",
 		""
 	],
-	"weekName": "Monochrome"
+	"weekName": "Pixel BFs week"
 }
