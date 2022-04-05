@@ -55,8 +55,7 @@ You can now play, test and debug the game. To debug the game just run `lime test
 ### Special Thanks
 * shubs - New Input System
 * ActualMandM - Prevent Lua scripts from bypassing disabled antialiasing code
-* HiroMizuki - Screen Resolution code & Pixel Note Splashes
-* pahaze - Botplay text moves to bottom in Middle Scroll code
+* HiroMizuki - Pixel Note Splashes
 * SqirraRNG - Chart Editor's Sound Waveform base code
 * iFlicky - Delay/Combo Menu Song Composer + Dialogue Sounds
 * PolybiusProxy - .MP4 Loader Extension
