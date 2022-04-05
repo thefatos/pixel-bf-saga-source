@@ -55,6 +55,7 @@ You can now play, test and debug the game. To debug the game just run `lime test
 ### Special Thanks
 * shubs - New Input System
 * ActualMandM - Prevent Lua scripts from bypassing disabled antialiasing code
+* jigsaw-4277821 - Black box in credits decription.
 * HiroMizuki - Pixel Note Splashes
 * SqirraRNG - Chart Editor's Sound Waveform base code
 * iFlicky - Delay/Combo Menu Song Composer + Dialogue Sounds
