@@ -5,44 +5,11 @@ import flixel.FlxG;
 import flixel.FlxSubState;
 import flixel.FlxBasic;
 import flixel.FlxSprite;
-#if android
-import flixel.input.actions.FlxActionInput;
-import android.FlxVirtualPad;
-#end
 
 class MusicBeatSubstate extends FlxSubState
 {
 	public function new()
 	{
-		#if android
-		addVirtualPad(FULL, A_B);
-			#end
-	
-		//if you want it to have a camera
-			#if android
-		addPadCamera();
-			#end
-	
-		//in states, those needs to be added before super.create();
-		//in substates, in fuction new at the last line add those
-	
-		//on Playstate.hx after all
-		//obj.camera = ...
-		//add
-			#if android
-		addAndroidControls();
-			#end
-	
-		//to make the controls visible the code is
-		#if android
-		androidc.visible = true;
-		#end
-	
-		//to make the controls invisible the code is
-		#if android
-		androidc.visible = false;
-		#end
-		
 		super();
 	}
 
@@ -55,40 +22,6 @@ class MusicBeatSubstate extends FlxSubState
 
 	inline function get_controls():Controls
 		return PlayerSettings.player1.controls;
-
-	#if android
-	var _virtualpad:FlxVirtualPad;
-	var trackedinputsUI:Array<FlxActionInput> = [];
-	var trackedinputsNOTES:Array<FlxActionInput> = [];
-	#end
-	
-	#if android
-	public function addVirtualPad(?DPad:FlxDPadMode, ?Action:FlxActionMode) {
-		_virtualpad = new FlxVirtualPad(DPad, Action, 0.75, ClientPrefs.globalAntialiasing);
-		add(_virtualpad);
-		controls.setVirtualPadUI(_virtualpad, DPad, Action);
-		trackedinputsUI = controls.trackedinputsUI;
-		controls.trackedinputsUI = [];
-	}
-	#end
-
-	#if android
-        public function addPadCamera() {
-		var camcontrol = new flixel.FlxCamera();
-		FlxG.cameras.add(camcontrol);
-		camcontrol.bgColor.alpha = 0;
-		_virtualpad.cameras = [camcontrol];
-	}
-	#end
-	
-	override function destroy() {
-		#if android
-		controls.removeFlxInput(trackedinputsUI);
-		controls.removeFlxInput(trackedinputsNOTES);	
-		#end	
-		
-		super.destroy();
-	}
 
 	override function update(elapsed:Float)
 	{
