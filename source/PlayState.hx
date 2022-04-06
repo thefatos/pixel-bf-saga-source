@@ -342,6 +342,8 @@ class PlayState extends MusicBeatState
 			detailsText = "Freeplay";
 		}
 
+		#if android FlxG.android.justReleased.BACK #end
+
 		// String for when the game is paused
 		detailsPausedText = "Paused - " + detailsText;
 		#end
